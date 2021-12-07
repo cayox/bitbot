@@ -1,0 +1,2 @@
+from .algorithm import TradingAlgorithmInterface
+from .trendfollowing import TrendFollowing

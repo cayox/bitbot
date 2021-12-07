@@ -1,0 +1,9 @@
+{
+    "market": "DFI-EUR",
+    "quantity": 1,
+    "lookback": 60,
+    "buy_percentage": 0.001,
+    "sell_high": 0.0015,
+    "sell_low": -0.0015,
+    "update_interval": 10
+}

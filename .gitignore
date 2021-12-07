@@ -1,0 +1,14 @@
+# secrets
+secrets.json
+
+# python
+__pycache__/
+
+# logs
+*.log
+
+# editor
+.vscode/
+
+# virtual env
+venv/
