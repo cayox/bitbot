@@ -3,8 +3,12 @@ import datetime as dt
 import hmac
 import json
 import enum
+from time import strftime
 import requests
 from bitbot import services
+import pandas as pd
+
+from bitbot.services.service import CandleInterval
 
 BITTREX_URL = "https://api.bittrex.com/v3"
 
@@ -68,8 +72,8 @@ class BitTrex(services.ServiceInterface):
     def get_account_id(self) -> str:
         return self.api_request("/account")["accountId"]
     
-    def get_balance(self, currency: str) -> dict[str, any]: 
-        return self.api_request(f"/balances/{currency}")
+    def get_available_balance(self, currency: str) -> float: 
+        return float(self.api_request(f"/balances/{currency}")["available"])
 
     #### Markets
     
@@ -92,54 +96,42 @@ class BitTrex(services.ServiceInterface):
     
     #### candles
 
-    def get_candles(self, market: str, candleinterval: services.CandleInterval) -> dict[str, str]:
-        return self.api_request(f"/markets/{market}/candles/{candleinterval.name}/recent")
+    def get_candles(self, market: str, candleinterval: services.CandleInterval) -> pd.DataFrame:
+        response = self.api_request(f"/markets/{market}/candles/{candleinterval.value}/recent")
+        # build dataframe
+        df = pd.DataFrame(response, columns=list(response[0].keys()))
+
+        # time conversion
+        df["startsAt"] = pd.to_datetime(df["startsAt"], format="%Y-%m-%dT%H:%M:%SZ")
+        # float conversion; values are strings by default
+        for val in ["open", "close", "high", "low", "volume", "quoteVolume"]:
+            df[val] = pd.to_numeric(df[val], downcast="float")
+        return df
     
-    def get_avg(self, calc_point: str, market: str, timedelta: dt.timedelta) -> float:
-        days = timedelta.days
-        current_date = dt.datetime.now()
+    def get_market_percentage(self, market: str, timedelta: dt.timedelta, calc_point: str = None) -> float:
+        if calc_point is None:
+            calc_point = "close"
+        candle_interval = self.determine_candle_interval(timedelta)
 
-        if days < 0:
-            raise ValueError("startdate must be before current datetime")
+        candles = self.get_candles(market, candle_interval)
 
-        if days <= 1:
-            candleinterval = services.CandleInterval.MINUTE_1
-        elif days <= 31:
-            candleinterval = services.CandleInterval.HOUR_1
-        else:
-            candleinterval = services.CandleInterval.DAY_1
-
-        response = self.get_candles(market, candleinterval)
-        sum = 0
-        amount = 0 
-        for item in response:
-            if dt.datetime.strptime(item["startsAt"], "%Y-%m-%dT%H:%M:%SZ") < current_date - timedelta:
-                continue
-
-            sum += float(item[calc_point])
-            amount += 1
-        return sum/amount
+        lookback = candles[candles["startsAt"] >= dt.datetime.utcnow() - timedelta]
+        pcts = (lookback[calc_point].pct_change() + 1).cumprod() - 1
+        if not len(pcts):
+            return 0
+        return pcts[pcts.last_valid_index()]
     
-    def get_percentage(self, calc_point: str, market: str, timedelta: dt.timedelta) -> float:
-        days = timedelta.days
-        current_date = dt.datetime.now()
+    def get_market_mean(self, market: str, timedelta: dt.timedelta, calc_point: str = None) -> float:
+        if calc_point is None:
+            calc_point = "close"
+        candle_interval = self._determine_candle_interval(timedelta)
 
-        if days < 0:
-            raise ValueError("startdate must be before current datetime")
+        candles = self.get_candles(market, candle_interval)
 
-        if days <= 1:
-            candleinterval = services.CandleInterval.MINUTE_1
-        elif days <= 31:
-            candleinterval = services.CandleInterval.HOUR_1
-        else:
-            candleinterval = services.CandleInterval.DAY_1
-
-        response = self.get_candles(market, candleinterval)
-        for item in response:
-            if dt.datetime.strptime(item["startsAt"], "%Y-%m-%dT%H:%M:%SZ") < current_date - timedelta:
-                continue
-            return 1 - (float(item[calc_point])/float(response[-1][calc_point]))
-        return 0
+        lookback = candles[candles["startsAt"] >= dt.datetime.utcnow() - timedelta]
+        if len(lookback) == 0:
+            return 0
+        return lookback[calc_point].mean()
             
             
 
@@ -150,5 +142,5 @@ if __name__ == "__main__":
     b = BitTrex()
     # print(b.get_percentage("close", "BTC-EUR", dt.timedelta(days=1)))
     print(b.get_market_ticker("BTC-EUR"))
-    o = services.Order("DFI-EUR", services.OrderDirection.BUY, services.OrderType.MARKET, services.TimeInForce.IMMEDIATE_OR_CANCEL, 2, use_awards=True)
-    print(b.place_order(o))
+    # o = services.Order("DFI-EUR", services.OrderDirection.BUY, services.OrderType.MARKET, services.TimeInForce.IMMEDIATE_OR_CANCEL, 2, use_awards=True)
+    # print(b.place_order(o))

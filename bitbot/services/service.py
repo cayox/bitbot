@@ -13,29 +13,29 @@ def date_time_milliseconds(date_time_obj):
     
 
 class OrderDirection(enum.Enum):
-    NONE = 0
-    SELL = 1
-    BUY = 2
+    NONE = "NONE"
+    SELL = "SELL"
+    BUY = "BUY"
 
 class TimeInForce(enum.Enum):
-    GOOD_TIL_CANCELLED = 0
-    IMMEDIATE_OR_CANCEL = 1
-    FILL_OR_KILL = 2
-    POST_ONLY_GOOD_TIL_CANCELLED = 3
-    BUY_NOW = 4
-    INSTANT = 5
+    GOOD_TIL_CANCELLED = "GOOD_TIL_CANCELLED"
+    IMMEDIATE_OR_CANCEL = "IMMEDIATE_OR_CANCEL"
+    FILL_OR_KILL = "FILL_OR_KILL"
+    POST_ONLY_GOOD_TIL_CANCELLED = "POST_ONLY_GOOD_TIL_CANCELLED"
+    BUY_NOW = "BUY_NOW"
+    INSTANT = "INSTANT"
 
 class CandleInterval(enum.Enum):
-    MINUTE_1 = 0
-    MINUTE_5 = 1
-    HOUR_1 = 2
-    DAY_1 = 3
+    MINUTE_1 = "MINUTE_1"
+    MINUTE_5 = "MINUTE_5"
+    HOUR_1 = "HOUR_1"
+    DAY_1 = "DAY_1"
 
 class OrderType(enum.Enum):
-    LIMIT = 0
-    MARKET = 1
-    CEILING_LIMIT = 2
-    CEILING_MARKET = 3
+    LIMIT = "LIMIT"
+    MARKET = "MARKET"
+    CEILING_LIMIT = "CEILING_LIMIT"
+    CEILING_MARKET = "CEILING_MARKET"
 
 class Order:
     def __init__(self, market: str, direction: OrderDirection, type: OrderType,
@@ -54,9 +54,9 @@ class Order:
     def __str__(self):
         out = {
                 "marketSymbol": self.market,
-                "direction": self.direction.name,
-                "type": self.type.name,
-                "timeInForce": self.time_in_force.name,
+                "direction": self.direction.value,
+                "type": self.type.value,
+                "timeInForce": self.time_in_force.value,
                 "useAwards": str(self.use_awards).lower()
             }
         for item in ["ceiling", "quantity", "limit"]:
@@ -74,13 +74,38 @@ class ServiceInterface:
             self._config = json.load(f)[service_name]
         self._api_key = self._config["key"]
         self._api_secret = self._config["secret"]
+    
+    @staticmethod
+    def determine_candle_interval(td: dt.timedelta) -> CandleInterval:
+        DAY = dt.timedelta(days=1).total_seconds()
+        secs = td.total_seconds()
+
+        if 59 > secs > 366*DAY:
+            raise ValueError("timdelta must be > 1 minute and < 366 days")
+
+        if secs <= DAY:
+            candleinterval = CandleInterval.MINUTE_1
+        elif secs <= 31*DAY:
+            candleinterval = CandleInterval.HOUR_1
+        else:
+            candleinterval = CandleInterval.DAY_1
+        
+        return candleinterval
 
     @abstractmethod
     def api_request(self, url: str, method: str = None, params: dict = None, body: dict or str = None, headers: dict[str, str] = None):
         pass
 
     @abstractmethod
-    def get_percentage(self, calc_point: str, market: str, timedelta: dt.timedelta) -> float:
+    def get_available_balance(self, currency: str) -> float: 
+        pass
+
+    @abstractmethod
+    def get_market_percentage(self, market: str, timedelta: dt.timedelta, calc_point: str = None) -> float:
+        pass
+
+    @abstractmethod 
+    def get_market_mean(self, market: str, timedelta: dt.timedelta, calc_point: str = None) -> float:
         pass
 
     @abstractmethod

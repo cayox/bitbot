@@ -1,9 +1,37 @@
-{
-    "market": "DFI-EUR",
-    "quantity": 1,
-    "lookback": 60,
-    "buy_percentage": 0.001,
-    "sell_high": 0.0015,
-    "sell_low": -0.0015,
-    "update_interval": 10
-}
+[
+    {
+        "service": "BitTrex",
+        "algorithm": {
+            "name": "MacdRsiAlgorithm",
+            "market": "BTC-EUR",
+            "quantity": 1,
+            "update_interval": 60,
+            "macd_slow": 26,
+            "macd_fast": 12,
+            "macd_sign": 9,
+            "rsi_window": 14,
+            "strategy": {
+                "rsi_buy": 80,
+                "rsi_sell": 20,
+                "macd_trigger_diff": 2
+            }
+
+        }
+    }, 
+    {
+        "service": "BitTrex",
+        "algorithm": {
+            "name": "TrendFollowing",
+            "market": "BTC-EUR",
+            "quantity": 1,
+            "update_interval": 60,
+            "strategy": {
+                "sell_high": 0.03,
+                "sell_low": -0.03,
+                "buy_percentage": 0.025,
+                "lookback": 1440
+            }
+
+        }
+    }
+]
