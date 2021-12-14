@@ -107,11 +107,11 @@
                                 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="bitbot.algorithm.html">bitbot.algorithm package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="bitbot.algorithm.html#module-bitbot.algorithm.algorithm">bitbot.algorithm.algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bitbot.algorithm.html#module-bitbot.algorithm.macd_rsi">bitbot.algorithm.macd_rsi</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bitbot.algorithm.html#module-bitbot.algorithm.meanrevision">bitbot.algorithm.meanrevision</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bitbot.algorithm.html#module-bitbot.algorithm.trendfollowing">bitbot.algorithm.trendfollowing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bitbot.algorithm.html#module-bitbot.algorithm">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bitbot.algorithm.html#bitbot-algorithm-algorithm">bitbot.algorithm.algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bitbot.algorithm.html#bitbot-algorithm-macd-rsi">bitbot.algorithm.macd_rsi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bitbot.algorithm.html#bitbot-algorithm-meanrevision">bitbot.algorithm.meanrevision</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bitbot.algorithm.html#bitbot-algorithm-trendfollowing">bitbot.algorithm.trendfollowing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bitbot.algorithm.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="bitbot.services.html">bitbot.services package</a><ul>
@@ -143,10 +143,53 @@
 <dt class="sig sig-object py" id="bitbot.bot.bot.Bot">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bitbot.bot.bot.</span></span><span class="sig-name descname"><span class="pre">Bot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bitbot.bot.bot.Bot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A trading bot that executes a certain strategy</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bitbot.bot.bot.Bot.config">
+<span class="sig-name descname"><span class="pre">config</span></span><a class="headerlink" href="#bitbot.bot.bot.Bot.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>the loaded configuration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict[str, any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bitbot.bot.bot.Bot.next_action">
+<span class="sig-name descname"><span class="pre">next_action</span></span><a class="headerlink" href="#bitbot.bot.bot.Bot.next_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>the next action; wether to sell or to buy</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>services.OrderDirection</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bitbot.bot.bot.Bot.history">
+<span class="sig-name descname"><span class="pre">history</span></span><a class="headerlink" href="#bitbot.bot.bot.Bot.history" title="Permalink to this definition">¶</a></dt>
+<dd><p>a history of all transactions the bot has made</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>config</strong> (<em>str</em><em> or </em><em>dict</em><em>[</em><em>str</em><em>,</em><em>any</em><em>]</em>) – the configuration that the bot should use</p>
+</dd>
+</dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="bitbot.bot.bot.Bot.start">
-<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bitbot.bot.bot.Bot.start" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="bitbot.bot.bot.Bot.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bitbot.bot.bot.Bot.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to start the Bot. Runs in an endless loop and alternates between buying and selling, based on the signal
+generated by the strategy used. Always executes market orders. Sleeps for the <code class="docutils literal notranslate"><span class="pre">update_interval</span></code> Seconds at the end of
+every loop iteration.</p>
+<p>Saves buying time, buying proceeds and order direction in an attribute called <code class="docutils literal notranslate"><span class="pre">history</span></code></p>
+</dd></dl>
 
 </dd></dl>
 

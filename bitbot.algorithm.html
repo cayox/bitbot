@@ -108,11 +108,11 @@
                                 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">bitbot.algorithm package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-bitbot.algorithm.algorithm">bitbot.algorithm.algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-bitbot.algorithm.macd_rsi">bitbot.algorithm.macd_rsi</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-bitbot.algorithm.meanrevision">bitbot.algorithm.meanrevision</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-bitbot.algorithm.trendfollowing">bitbot.algorithm.trendfollowing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-bitbot.algorithm">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bitbot-algorithm-algorithm">bitbot.algorithm.algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bitbot-algorithm-macd-rsi">bitbot.algorithm.macd_rsi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bitbot-algorithm-meanrevision">bitbot.algorithm.meanrevision</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bitbot-algorithm-trendfollowing">bitbot.algorithm.trendfollowing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-contents">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="bitbot.services.html">bitbot.services package</a><ul>
@@ -138,79 +138,20 @@
                             
   <section id="bitbot-algorithm-package">
 <h1>bitbot.algorithm package<a class="headerlink" href="#bitbot-algorithm-package" title="Permalink to this headline">¶</a></h1>
-<section id="module-bitbot.algorithm.algorithm">
-<span id="bitbot-algorithm-algorithm"></span><h2>bitbot.algorithm.algorithm<a class="headerlink" href="#module-bitbot.algorithm.algorithm" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="bitbot.algorithm.algorithm.TradingAlgorithmInterface">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bitbot.algorithm.algorithm.</span></span><span class="sig-name descname"><span class="pre">TradingAlgorithmInterface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">portal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="bitbot.services.html#bitbot.services.service.ServiceInterface" title="bitbot.services.service.ServiceInterface"><span class="pre">bitbot.services.service.ServiceInterface</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bitbot.algorithm.algorithm.TradingAlgorithmInterface" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bitbot.algorithm.algorithm.TradingAlgorithmInterface.calc_recent_macd">
-<span class="sig-name descname"><span class="pre">calc_recent_macd</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bitbot.algorithm.algorithm.TradingAlgorithmInterface.calc_recent_macd" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bitbot.algorithm.algorithm.TradingAlgorithmInterface.calc_recent_rsi">
-<span class="sig-name descname"><span class="pre">calc_recent_rsi</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#bitbot.algorithm.algorithm.TradingAlgorithmInterface.calc_recent_rsi" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bitbot.algorithm.algorithm.TradingAlgorithmInterface.generate_signal">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buy_posotion</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="bitbot.services.html#bitbot.services.service.OrderDirection" title="bitbot.services.service.OrderDirection"><span class="pre">bitbot.services.service.OrderDirection</span></a></span></span><a class="headerlink" href="#bitbot.algorithm.algorithm.TradingAlgorithmInterface.generate_signal" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bitbot.algorithm.algorithm.TradingAlgorithmInterface.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bitbot.algorithm.algorithm.TradingAlgorithmInterface.run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<section id="bitbot-algorithm-algorithm">
+<h2>bitbot.algorithm.algorithm<a class="headerlink" href="#bitbot-algorithm-algorithm" title="Permalink to this headline">¶</a></h2>
 </section>
-<section id="module-bitbot.algorithm.macd_rsi">
-<span id="bitbot-algorithm-macd-rsi"></span><h2>bitbot.algorithm.macd_rsi<a class="headerlink" href="#module-bitbot.algorithm.macd_rsi" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="bitbot.algorithm.macd_rsi.MacdRsiAlgorithm">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bitbot.algorithm.macd_rsi.</span></span><span class="sig-name descname"><span class="pre">MacdRsiAlgorithm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">portal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="bitbot.services.html#bitbot.services.service.ServiceInterface" title="bitbot.services.service.ServiceInterface"><span class="pre">bitbot.services.service.ServiceInterface</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bitbot.algorithm.macd_rsi.MacdRsiAlgorithm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#bitbot.algorithm.algorithm.TradingAlgorithmInterface" title="bitbot.algorithm.algorithm.TradingAlgorithmInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">bitbot.algorithm.algorithm.TradingAlgorithmInterface</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bitbot.algorithm.macd_rsi.MacdRsiAlgorithm.generate_signal">
-<span class="sig-name descname"><span class="pre">generate_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">open_position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="bitbot.services.html#bitbot.services.service.OrderDirection" title="bitbot.services.service.OrderDirection"><span class="pre">bitbot.services.service.OrderDirection</span></a></span></span><a class="headerlink" href="#bitbot.algorithm.macd_rsi.MacdRsiAlgorithm.generate_signal" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<section id="bitbot-algorithm-macd-rsi">
+<h2>bitbot.algorithm.macd_rsi<a class="headerlink" href="#bitbot-algorithm-macd-rsi" title="Permalink to this headline">¶</a></h2>
 </section>
-<section id="module-bitbot.algorithm.meanrevision">
-<span id="bitbot-algorithm-meanrevision"></span><h2>bitbot.algorithm.meanrevision<a class="headerlink" href="#module-bitbot.algorithm.meanrevision" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="bitbot.algorithm.meanrevision.MeanRevision">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bitbot.algorithm.meanrevision.</span></span><span class="sig-name descname"><span class="pre">MeanRevision</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">portal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="bitbot.services.html#bitbot.services.service.ServiceInterface" title="bitbot.services.service.ServiceInterface"><span class="pre">bitbot.services.service.ServiceInterface</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bitbot.algorithm.meanrevision.MeanRevision" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#bitbot.algorithm.algorithm.TradingAlgorithmInterface" title="bitbot.algorithm.algorithm.TradingAlgorithmInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">bitbot.algorithm.algorithm.TradingAlgorithmInterface</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bitbot.algorithm.meanrevision.MeanRevision.generate_signal">
-<span class="sig-name descname"><span class="pre">generate_signal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bitbot.algorithm.meanrevision.MeanRevision.generate_signal" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<section id="bitbot-algorithm-meanrevision">
+<h2>bitbot.algorithm.meanrevision<a class="headerlink" href="#bitbot-algorithm-meanrevision" title="Permalink to this headline">¶</a></h2>
 </section>
-<section id="module-bitbot.algorithm.trendfollowing">
-<span id="bitbot-algorithm-trendfollowing"></span><h2>bitbot.algorithm.trendfollowing<a class="headerlink" href="#module-bitbot.algorithm.trendfollowing" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="bitbot.algorithm.trendfollowing.TrendFollowing">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bitbot.algorithm.trendfollowing.</span></span><span class="sig-name descname"><span class="pre">TrendFollowing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">portal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="bitbot.services.html#bitbot.services.service.ServiceInterface" title="bitbot.services.service.ServiceInterface"><span class="pre">bitbot.services.service.ServiceInterface</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bitbot.algorithm.trendfollowing.TrendFollowing" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#bitbot.algorithm.algorithm.TradingAlgorithmInterface" title="bitbot.algorithm.algorithm.TradingAlgorithmInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">bitbot.algorithm.algorithm.TradingAlgorithmInterface</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bitbot.algorithm.trendfollowing.TrendFollowing.generate_signal">
-<span class="sig-name descname"><span class="pre">generate_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">open_position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="bitbot.services.html#bitbot.services.service.OrderDirection" title="bitbot.services.service.OrderDirection"><span class="pre">bitbot.services.service.OrderDirection</span></a></span></span><a class="headerlink" href="#bitbot.algorithm.trendfollowing.TrendFollowing.generate_signal" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<section id="bitbot-algorithm-trendfollowing">
+<h2>bitbot.algorithm.trendfollowing<a class="headerlink" href="#bitbot-algorithm-trendfollowing" title="Permalink to this headline">¶</a></h2>
 </section>
-<section id="module-bitbot.algorithm">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-bitbot.algorithm" title="Permalink to this headline">¶</a></h2>
+<section id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
 </section>
 </section>
 
