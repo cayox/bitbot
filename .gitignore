@@ -1,8 +1,9 @@
 # secrets
 secrets.json
 
-# python
+# build
 __pycache__/
+build/
 
 # logs
 *.log

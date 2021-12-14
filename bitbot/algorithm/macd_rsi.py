@@ -11,10 +11,12 @@ class MacdRsiAlgorithm(TradingAlgorithmInterface):
         logging.info(f"## {self.config['market']} ## RSI: {rsi:.2f} MACD: {macd:.2f} SIGNAL: {signal:.2f} DIFF: {diff:.2f}")
         if open_position:
             # buying
-            if rsi > self.strategy["rsi_buy"] and abs(diff) < self.strategy["macd_trigger_diff"] and macd > self.strategy["macd_trigger_diff"] and signal > self.strategy["macd_trigger_diff"]:
+            if rsi > self.strategy["rsi_buy"] and abs(diff) < self.strategy["macd_trigger_diff"] and \
+                abs(macd) > self.strategy["macd_trigger_diff"] and abs(signal) > self.strategy["macd_trigger_diff"]:
                 return services.OrderDirection.BUY
         else:
             # selling
-            if rsi > self.strategy["rsi_sell"] and abs(diff) < self.strategy["macd_trigger_diff"] and macd < 0 - self.strategy["macd_trigger_diff"] and signal < 0 - self.strategy["macd_trigger_diff"]:
+            if rsi < self.strategy["rsi_sell"] and abs(diff) < self.strategy["macd_trigger_diff"] and \
+                abs(macd) > self.strategy["macd_trigger_diff"] and abs(signal) > self.strategy["macd_trigger_diff"]:
                 return services.OrderDirection.SELL
         return services.OrderDirection.NONE
