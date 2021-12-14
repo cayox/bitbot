@@ -1,0 +1,195 @@
+
+
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>bitbot.bot package &mdash; BitBot  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.min.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="bitbot.services package" href="bitbot.services.html" /> 
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a class="site-nav-toggle hidden-lg-up"><i class="icon-menu"></i></a>
+            <a class="site-title" href="index.html">
+                BitBot
+            </a>
+        </div>
+    </header>
+
+
+<div class="breadcrumbs-outer hidden-xs-down">
+    <div class="container">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="breadcrumbs">
+    
+      <li><a href="index.html">Docs</a></li>
+        
+      <li>bitbot.bot package</li>
+    
+    
+      <li class="breadcrumbs-aside">
+        
+            
+            <a href="_sources/bitbot.bot.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+</div>
+    </div>
+</div>
+    <div class="main-outer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3 site-nav">
+                    
+<div role="search">
+    <form class="search" action="search.html" method="get">
+        <div class="icon-input">
+            <input type="text" name="q" placeholder="Search" />
+            <span class="icon-search"></span>
+        </div>
+        <input type="submit" value="Go" class="d-hidden" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+                    <div class="site-nav-tree">
+                        
+                            
+                            
+                                <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="bitbot.algorithm.html">bitbot.algorithm package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bitbot.algorithm.html#module-bitbot.algorithm.algorithm">bitbot.algorithm.algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bitbot.algorithm.html#module-bitbot.algorithm.macd_rsi">bitbot.algorithm.macd_rsi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bitbot.algorithm.html#module-bitbot.algorithm.meanrevision">bitbot.algorithm.meanrevision</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bitbot.algorithm.html#module-bitbot.algorithm.trendfollowing">bitbot.algorithm.trendfollowing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bitbot.algorithm.html#module-bitbot.algorithm">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bitbot.services.html">bitbot.services package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bitbot.services.html#module-bitbot.services.bittrex">bitbot.services.bittrex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bitbot.services.html#module-bitbot.services.service">bitbot.services.service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bitbot.services.html#module-bitbot.services">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">bitbot.bot package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-bitbot.bot.bot">bitbot.bot.bot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-bitbot.bot">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+                            
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9">
+                    <div class="document">
+                        
+                            
+  <section id="bitbot-bot-package">
+<h1>bitbot.bot package<a class="headerlink" href="#bitbot-bot-package" title="Permalink to this headline">¶</a></h1>
+<section id="module-bitbot.bot.bot">
+<span id="bitbot-bot-bot"></span><h2>bitbot.bot.bot<a class="headerlink" href="#module-bitbot.bot.bot" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="bitbot.bot.bot.Bot">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bitbot.bot.bot.</span></span><span class="sig-name descname"><span class="pre">Bot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bitbot.bot.bot.Bot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="bitbot.bot.bot.Bot.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bitbot.bot.bot.Bot.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-bitbot.bot">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-bitbot.bot" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+    <div class="footer" role="contentinfo">
+        <div class="container">
+            &#169; Copyright 2021, Nico Päller.
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.1.
+        </div>
+    </div>  
+
+</body>
+</html>
