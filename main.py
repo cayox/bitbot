@@ -1,5 +1,5 @@
 import json
-from bitbot.algorithm import *
+from bitbot.strategy import *
 from bitbot.bot.bot import Bot
 from bitbot.services import BitTrex
 import datetime as dt
@@ -14,5 +14,5 @@ if __name__ == "__main__":
     with open(r"C:\Projects\bitbot\example_config.json") as f:
         json = json.load(f)
     b = Bot(json[0])
-    b.start()
+    b.run()
         

@@ -101,6 +101,10 @@ class ServiceInterface:
         pass
 
     @abstractmethod
+    def get_market_ticker(self, market: str) -> dict[str, str]:
+        pass
+
+    @abstractmethod
     def get_market_percentage(self, market: str, timedelta: dt.timedelta, calc_point: str = None) -> float:
         pass
 

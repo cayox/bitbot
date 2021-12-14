@@ -1,16 +1,16 @@
 [
     {
         "service": "BitTrex",
-        "algorithm": {
+        "update_interval": 60,
+        "market": "BTC-EUR",
+        "quantity": 1,
+        "strat": {
             "name": "MacdRsiAlgorithm",
-            "market": "BTC-EUR",
-            "quantity": 1,
-            "update_interval": 60,
             "macd_slow": 26,
             "macd_fast": 12,
             "macd_sign": 9,
             "rsi_window": 14,
-            "strategy": {
+            "trigger_params": {
                 "rsi_buy": 80,
                 "rsi_sell": 20,
                 "macd_trigger_diff": 2
@@ -20,12 +20,12 @@
     }, 
     {
         "service": "BitTrex",
-        "algorithm": {
-            "name": "TrendFollowing",
-            "market": "BTC-EUR",
-            "quantity": 1,
-            "update_interval": 60,
-            "strategy": {
+        "name": "TrendFollowing",
+        "market": "BTC-EUR",
+        "quantity": 1,
+        "update_interval": 60,
+        "strat": {
+            "trigger_params": {
                 "sell_high": 0.03,
                 "sell_low": -0.03,
                 "buy_percentage": 0.025,

@@ -1,8 +1,8 @@
-from .algorithm import TradingAlgorithmInterface
+from .strategy import TradingStrategyInterface
 import datetime as dt
 
 
-class MeanRevision(TradingAlgorithmInterface):
+class MeanRevision(TradingStrategyInterface):
 
 
     def generate_signal(self):
