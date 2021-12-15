@@ -1,9 +1,11 @@
 import json
+import logging
 from bitbot.strategy import *
-from bitbot.bot.bot import Bot
+from bitbot.bot import Bot, BacktestBot
 from bitbot.services import BitTrex
 import datetime as dt
 
+logging.basicConfig(format='[%(asctime)s] [%(levelname)s]: %(message)s', level=logging.INFO)
 
 if __name__ == "__main__":
     b = BitTrex()
@@ -13,6 +15,6 @@ if __name__ == "__main__":
     # print(b.get_available_balance("BTC"))
     with open(r"C:\Projects\bitbot\example_config.json") as f:
         json = json.load(f)
-    b = Bot(json[0])
+    b = BacktestBot(json[0])
     b.run()
         

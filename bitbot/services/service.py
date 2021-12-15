@@ -1,8 +1,11 @@
 from abc import abstractmethod
 import json
 import time
+import sys
 import datetime as dt
 import enum
+import pandas as pd
+from functools import lru_cache
 
 
 def now_milliseconds():
@@ -67,13 +70,40 @@ class Order:
 
         return str(out)
 
+def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 60, fill = '█', printEnd = "\r"):
+    """
+    Call in a loop to create terminal progress bar
+    From: https://stackoverflow.com/questions/3173320/text-progress-bar-in-the-console
+
+    Args:
+        iteration   - Required  : current iteration (Int)
+        total       - Required  : total iterations (Int)
+        prefix      - Optional  : prefix string (Str)
+        suffix      - Optional  : suffix string (Str)
+        decimals    - Optional  : positive number of decimals in percent complete (Int)
+        length      - Optional  : character length of bar (Int)
+        fill        - Optional  : bar fill character (Str)
+        printEnd    - Optional  : end character (e.g. "\r", "\r\n") (Str)
+    """
+    percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
+    filledLength = int(length * iteration // total)
+    bar = fill * (filledLength) + '-' * (length - filledLength)
+    print(f'\r{prefix} |{bar}| {percent}% {suffix}', end=printEnd)
+    # Print New Line on Complete
+    if iteration == total: 
+        print()
+
 
 class ServiceInterface:
-    def __init__(self, service_name: str):
+    def __init__(self, service_name: str = None):
+        if service_name is None:
+            return
+            
         with open("./secrets.json", encoding="utf8") as f:
             self._config = json.load(f)[service_name]
-        self._api_key = self._config["key"]
-        self._api_secret = self._config["secret"]
+            self._api_key = self._config["key"]
+            self._api_secret = self._config["secret"]
+
     
     @staticmethod
     def determine_candle_interval(td: dt.timedelta) -> CandleInterval:
@@ -101,6 +131,10 @@ class ServiceInterface:
         pass
 
     @abstractmethod
+    def get_candles(self, market: str, candleinterval: CandleInterval) -> pd.DataFrame:
+        pass
+
+    @abstractmethod
     def get_market_ticker(self, market: str) -> dict[str, str]:
         pass
 
@@ -118,4 +152,9 @@ class ServiceInterface:
 
     @abstractmethod
     def place_order(self, orders: list[Order]) -> list[dict[str, str]]:
+        pass
+    
+    @abstractmethod
+    @lru_cache
+    def get_history_data(self, market: str, candleinterval: CandleInterval, start: dt.datetime, end: dt.datetime) -> pd.DataFrame:
         pass

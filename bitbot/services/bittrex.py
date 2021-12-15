@@ -2,7 +2,8 @@ import hashlib
 import datetime as dt
 import hmac
 import json
-import enum
+from os import terminal_size
+import time
 from time import strftime
 import requests
 from bitbot import services
@@ -108,6 +109,8 @@ class BitTrex(services.ServiceInterface):
             df[val] = pd.to_numeric(df[val], downcast="float")
         return df
     
+    #### technical indicators
+
     def get_market_percentage(self, market: str, timedelta: dt.timedelta, calc_point: str = None) -> float:
         if calc_point is None:
             calc_point = "close"
@@ -132,6 +135,45 @@ class BitTrex(services.ServiceInterface):
         if len(lookback) == 0:
             return 0
         return lookback[calc_point].mean()
+    
+    #### market history
+    
+    def get_history_data(self, market: str, candleinterval: services.CandleInterval, start: dt.datetime, end: dt.datetime) -> pd.DataFrame:
+        interval_days = 1
+        if candleinterval == services.CandleInterval.HOUR_1:
+            interval_days = 31
+        elif candleinterval == services.CandleInterval.DAY_1:
+            interval_days = 366
+
+
+        if self.determine_candle_interval(end - start) == candleinterval:
+            url = f"markets/{market}/candles/{candleinterval.value}/historical/{start.strftime('%Y')}/{start.strftime('%m')}/{start.strftime('%d')}"
+            df = pd.DataFrame(self.api_request(url))
+            df["startsAt"] = pd.to_datetime(df["startsAt"])
+        else:
+            next_start = start
+            
+            df = pd.DataFrame()
+
+            max_iterations = int((end - start).days)
+            i = 0
+            services.printProgressBar(i, max_iterations, f"{'Downloading history':<32}")
+            while next_start < end:
+                url = f"markets/{market}/candles/{candleinterval.value}/historical/{next_start.strftime('%Y')}/{next_start.strftime('%m')}/{next_start.strftime('%d')}"
+                df = df.append(pd.DataFrame(self.api_request(url)), ignore_index=True)
+                
+                df["startsAt"] = pd.to_datetime(df["startsAt"], utc=True)
+                next_start += dt.timedelta(days=interval_days)
+                # to prevent to DOS the server, or get an error because too many requests
+                time.sleep(0.1)
+                i += 1
+                services.printProgressBar(i, max_iterations, f"{'Downloading history':<32}")
+        
+        df = df[df["startsAt"] < end.isoformat()].rename({"startsAt": "time"})
+        # float conversion; values are strings by default
+        for val in ["open", "close", "high", "low", "volume", "quoteVolume"]:
+            df[val] = pd.to_numeric(df[val], downcast="float")
+        return df.rename(str.lower, axis='columns')
             
             
 

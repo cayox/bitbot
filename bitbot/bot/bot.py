@@ -31,8 +31,6 @@ class Bot:
         # initialze strategy class from imports
         self.strat : strategy.TradingStrategyInterface = getattr(strategy, self.config["strat"]["name"])(self.service, self.config["strat"], self.config["market"])
 
-        self.next_action = services.OrderDirection.BUY
-
         self.history = pd.DataFrame()
     
     def run(self):
@@ -47,7 +45,15 @@ class Bot:
             last_price = self.service.get_market_ticker(self.config["market"])["lastTradeRate"]
             logging.info(f"## {self.config['market']} ## Last Price: {last_price}")
             available_balance = self.service.get_available_balance(self.config["market"].split("-")[0])
-            signal = self.strat.generate_signal(self.next_action == services.OrderDirection.BUY)
+
+            candles = self.service.get_candles(self.config["market"], 
+                                               self.service.determine_candle_interval(dt.timedelta(minutes=self.config["lookback"])))
+            candles = candles.rename(columns={"startsAt": "time"})
+            candles["rsi"] = self.strat.calc_rsi(candles)
+
+            candles = self.strat.calc_macd(candles)
+            signal = self.strat.generate_signal(candles)
+            
             if signal != services.OrderDirection.NONE:
                 order = services.Order(self.config["market"], signal, services.OrderType.MARKET, 
                                            services.TimeInForce.IMMEDIATE_OR_CANCEL, 

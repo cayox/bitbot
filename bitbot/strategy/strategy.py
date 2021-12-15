@@ -1,10 +1,8 @@
 from abc import abstractmethod
 import json
 from bitbot import services
-import logging
 from ta import momentum, trend
-
-logging.basicConfig(format='[%(asctime)s] [%(levelname)s]: %(message)s', level=logging.INFO)
+import pandas as pd
 
 
 class TradingStrategyInterface:
@@ -35,8 +33,10 @@ class TradingStrategyInterface:
         
         self.market = market        
         self.trigger_params = self.config["trigger_params"]
+         
+        self.next_action = services.OrderDirection.BUY
     
-    def calc_recent_rsi(self) -> float:
+    def calc_rsi(self, candles: pd.DataFrame) -> pd.DataFrame:
         """
         Method to calulate the RSI of the most recent data. uses ``rsi_window`` from the config as windowsetting.
         Always uses "close" value of candles.
@@ -45,12 +45,11 @@ class TradingStrategyInterface:
             float
 
         """
-        candles = self.service.get_candles(self.market, services.CandleInterval.MINUTE_1)
         ind = momentum.RSIIndicator(candles["close"], window=self.config["rsi_window"])
         df_rsi = ind.rsi()
-        return df_rsi[df_rsi.last_valid_index()]
+        return df_rsi
     
-    def calc_recent_macd(self) -> list[float]:
+    def calc_macd(self, candles: pd.DataFrame) -> list[float]:
         """
         Method to calulate the RSI of the most recent data. uses ``macd_slow``, ``macd_fast`` and ``macd_sign`` from the config as paraeters
         Always uses "close" value of candles.
@@ -59,20 +58,19 @@ class TradingStrategyInterface:
             float
 
         """
-        candles = self.service.get_candles(self.market, services.CandleInterval.MINUTE_1)
         obj = trend.MACD(candles["close"], self.config["macd_slow"], self.config["macd_fast"], self.config["macd_sign"])
-        macd = obj.macd()
-        signal = obj.macd_signal()
-        histogram = obj.macd_diff()
-        return [macd[macd.last_valid_index()], signal[signal.last_valid_index()], histogram[histogram.last_valid_index()]]
-
+        candles["macd"] = obj.macd()
+        candles["macd_signal"] = obj.macd_signal()
+        candles["macd_diff"] = obj.macd_diff()
+        return candles
+        
     @abstractmethod
-    def generate_signal(self, buy_position: bool = False) -> services.OrderDirection:
+    def generate_signal(self, candles: pd.DataFrame) -> services.OrderDirection:
         """
-        Method to generate a buying or selling signal based on any market data
+        Method to generate a buying or selling signal based on any market data. Must be overwritten from specific or self implemented Strategies.
 
         Args:
-            buy_position (bool=False): Wether function should check for buying or selling conditions
+            buy_position (bool=False): Wether method should check for buying or selling conditions
 
         Returns:
             services.OrderDirection

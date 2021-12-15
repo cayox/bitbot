@@ -4,6 +4,7 @@
         "update_interval": 60,
         "market": "BTC-EUR",
         "quantity": 1,
+        "lookback": 1440,
         "strat": {
             "name": "MacdRsiAlgorithm",
             "macd_slow": 26,
@@ -24,12 +25,12 @@
         "market": "BTC-EUR",
         "quantity": 1,
         "update_interval": 60,
+        "lookback": 1440,
         "strat": {
             "trigger_params": {
                 "sell_high": 0.03,
                 "sell_low": -0.03,
-                "buy_percentage": 0.025,
-                "lookback": 1440
+                "buy_percentage": 0.025
             }
 
         }
