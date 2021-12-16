@@ -36,36 +36,42 @@ class TradingStrategyInterface:
          
         self.next_action = services.OrderDirection.BUY
     
-    def calc_rsi(self, candles: pd.DataFrame) -> pd.DataFrame:
+    def calc_rsi(self, candles: pd.DataFrame, **kwargs) -> pd.DataFrame:
         """
-        Method to calulate the RSI of the most recent data. uses ``rsi_window`` from the config as windowsetting.
-        Always uses "close" value of candles.
+        Method to calulate the rsi of the specified data. Accepts the same parameter as in :ref:`ta.momentum.RSIIndicator<https://technical-analysis-library-in-python.readthedocs.io/en/latest/ta.html#ta.momentum.RSIIndicator>`
+
+        
+        Args:
+            candles (pd.Dataframe): the Dataframe to which the rsi should be applied to
 
         Returns:
-            float
+            pd.DataFrame: returns the same dataframe with a ``"rsi"`` column
 
         """
-        ind = momentum.RSIIndicator(candles["close"], window=self.config["rsi_window"])
-        df_rsi = ind.rsi()
-        return df_rsi
+        ind = momentum.RSIIndicator(candles["close"], **kwargs)
+        candles["rsi"] = ind.rsi()
+
+        return candles
     
-    def calc_macd(self, candles: pd.DataFrame) -> list[float]:
+    def calc_macd(self, candles: pd.DataFrame, **kwargs) -> pd.DataFrame:
         """
-        Method to calulate the RSI of the most recent data. uses ``macd_slow``, ``macd_fast`` and ``macd_sign`` from the config as paraeters
-        Always uses "close" value of candles.
+        Method to calulate the macd of the most recent data. Accepts the same parameter as in :ref:`ta.trend.MACD<https://technical-analysis-library-in-python.readthedocs.io/en/latest/ta.html#ta.trend.MACD>`
+
+        Args:
+            candles (pd.Dataframe): the Dataframe to which the macd should be applied to
 
         Returns:
-            float
+            pd.DataFrame: returns the same dataframe with ``"macd"``, ``"macd_signal"`` and ``"macd_diff"`` columns
 
         """
-        obj = trend.MACD(candles["close"], self.config["macd_slow"], self.config["macd_fast"], self.config["macd_sign"])
-        candles["macd"] = obj.macd()
-        candles["macd_signal"] = obj.macd_signal()
-        candles["macd_diff"] = obj.macd_diff()
+        obj = trend.MACD(candles["close"], **kwargs)
+        candles.loc[:, "macd"] = obj.macd()
+        candles.loc[:, "macd_signal"] = obj.macd_signal()
+        candles.loc[:, "macd_diff"] = obj.macd_diff()
         return candles
         
     @abstractmethod
-    def generate_signal(self, candles: pd.DataFrame) -> services.OrderDirection:
+    def generate_signal(self, candles: pd.DataFrame, log: callable) -> services.OrderDirection:
         """
         Method to generate a buying or selling signal based on any market data. Must be overwritten from specific or self implemented Strategies.
 

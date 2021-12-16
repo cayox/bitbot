@@ -2,11 +2,11 @@ import json
 import logging
 import time
 import datetime as dt
-from bitbot import services, strategy, bot
+from bitbot import services, strategy, bots
 import numpy as np
 
 
-class BacktestBot(bot.Bot):
+class BacktestBot(bots.Bot):
     """
     A bot that executes a certain strategy on history data
 
@@ -33,18 +33,17 @@ class BacktestBot(bot.Bot):
         # diable logging, because it slows down this fast process
         logger = logging.getLogger()
         logger.disabled = True
-        
-        # TODO: implement parameters from config file
+
+        backtest_cfg = self.config["backtest"]
 
         candles = self.service.get_history_data(self.config["market"], services.CandleInterval.MINUTE_1,
-                                                dt.datetime.utcnow() - dt.timedelta(days=30), dt.datetime.utcnow())
-        candles["rsi"] = self.strat.calc_rsi(candles)
-        candles = self.strat.calc_macd(candles)
+                                                backtest_cfg["start"], backtest_cfg["end"])
+        candles = self.apply_tas(candles)
         candles = candles.reset_index()
 
         def apply_strat(index): 
             services.printProgressBar(index, len(candles.index), prefix=f"{'Applying strategy':<32}")
-            return self.strat.generate_signal(candles.iloc[index-100:index]).value
+            return self.strat.generate_signal(candles.iloc[index-100:index], self.log).value
 
         candles["order"] = candles.index.map(apply_strat)
         buys = candles[candles["order"] == "BUY"]

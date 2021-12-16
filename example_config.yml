@@ -1,0 +1,46 @@
+Bot1:
+
+  type: BacktestBot
+  backtest:
+    start: 2021-11-16
+    end: 2021-12-16
+    interval: MINUTE_1
+  service: BitTrex
+  update_interval: 60 # seconds
+  market: BTC-EUR
+  quantity: 1
+
+  strat: 
+    name: MacdRsiAlgorithm
+
+    ta_params: 
+      macd:
+        window_slow: 26
+        window_fast: 12
+        window_sign: 9
+      rsi:
+        window: 14
+
+    trigger_params:
+      rsi_buy: 80
+      rsi_sell: 20
+      macd_trigger_diff: 2
+
+Bot2:
+
+  type: BacktestBot
+  service: BitTrex
+  update_interval: 60 # seconds
+  market: BTC-EUR
+  quantity: 1
+
+  strat: 
+    name: TrendFollowing
+
+    trigger_params:
+      sell_high: 0.03
+      sell_low: -0.03
+      buy_percentage: 0.025
+
+
+

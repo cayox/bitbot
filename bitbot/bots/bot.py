@@ -19,12 +19,14 @@ class Bot:
         config (str or dict[str,any]): the configuration that the bot should use
 
     """
-    def __init__(self, config: str or dict[str, any]):
+    def __init__(self,name: str, config: str or dict[str, any]):
         if isinstance(config, str):
             with open(config, encoding="utf8") as f:
                 self.config = json.load(f)
         else:
             self.config = config
+        
+        self.name = name
 
         # initialize service class from imports
         self.service : services.ServiceInterface = getattr(services, self.config["service"])()
@@ -32,6 +34,31 @@ class Bot:
         self.strat : strategy.TradingStrategyInterface = getattr(strategy, self.config["strat"]["name"])(self.service, self.config["strat"], self.config["market"])
 
         self.history = pd.DataFrame()
+    
+    def apply_tas(self, candles: pd.DataFrame) -> pd.DataFrame:
+        """
+        Method to apply technical indicators specified in the template
+
+        Args:
+            candles (pd.DataFrame): the candles to apply the technical indicators to
+
+        Returns:
+            pd.DataFrame
+
+        """
+        cfg = self.config["strat"]["ta_params"] 
+        if "macd" in cfg:
+            candles = self.strat.calc_macd(candles, **cfg["macd"])
+        if "rsi" in cfg:
+            candles["rsi"] = self.strat.calc_rsi(candles, **cfg["rsi"])
+            
+        return candles
+    
+    def log(self, msg: str):
+        logging.info(f"* {self.name}: {msg}")
+    
+    def warn(self, msg: str):
+        logging.warning(f"* {self.name}: {msg}")
     
     def run(self):
         """
@@ -43,7 +70,7 @@ class Bot:
         """
         while True:
             last_price = self.service.get_market_ticker(self.config["market"])["lastTradeRate"]
-            logging.info(f"## {self.config['market']} ## Last Price: {last_price}")
+            self.log(f"## {self.config['market']} ## Last Price: {last_price}")
             available_balance = self.service.get_available_balance(self.config["market"].split("-")[0])
 
             candles = self.service.get_candles(self.config["market"], 
@@ -52,7 +79,7 @@ class Bot:
             candles["rsi"] = self.strat.calc_rsi(candles)
 
             candles = self.strat.calc_macd(candles)
-            signal = self.strat.generate_signal(candles)
+            signal = self.strat.generate_signal(candles, self.log)
             
             if signal != services.OrderDirection.NONE:
                 order = services.Order(self.config["market"], signal, services.OrderType.MARKET, 
@@ -68,9 +95,9 @@ class Bot:
                     return
                 
                 if res["status"] != "CLOSED":
-                    logging.warning(f'Could not place Order: Status: {res["status"]}')
+                    self.warn(f'Could not place Order: Status: {res["status"]}')
                 else:
-                    logging.info(f'Placed Order: {res}')
+                    self.log(f'Placed Order: {res}')
 
                     self.history = self.history.append({"time": dt.datetime.utcnow(), "value": res["proceeds"], "direction": self.next_action}, ignore_index=True)
                     self.next_action = services.OrderDirection.SELL if self.next_action == services.OrderDirection.BUY else services.OrderDirection.BUY

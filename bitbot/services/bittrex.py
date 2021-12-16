@@ -8,6 +8,7 @@ from time import strftime
 import requests
 from bitbot import services
 import pandas as pd
+from bitbot.helpers import history_cache
 
 from bitbot.services.service import CandleInterval
 

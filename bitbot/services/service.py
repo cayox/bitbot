@@ -5,7 +5,6 @@ import sys
 import datetime as dt
 import enum
 import pandas as pd
-from functools import lru_cache
 
 
 def now_milliseconds():
@@ -155,6 +154,5 @@ class ServiceInterface:
         pass
     
     @abstractmethod
-    @lru_cache
     def get_history_data(self, market: str, candleinterval: CandleInterval, start: dt.datetime, end: dt.datetime) -> pd.DataFrame:
         pass
