@@ -116,14 +116,14 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">bitbot.services package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-bitbot.services.bittrex">bitbot.services.bittrex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bitbot-services-bittrex">bitbot.services.bittrex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-bitbot.services.service">bitbot.services.service</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-bitbot.services">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-contents">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="bitbot.bot.html">bitbot.bot package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="bitbot.bot.html#module-bitbot.bot.bot">bitbot.bot.bot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bitbot.bot.html#module-bitbot.bot">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bitbot.bot.html#bitbot-bot-bot">bitbot.bot.bot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bitbot.bot.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -138,74 +138,8 @@
                             
   <section id="bitbot-services-package">
 <h1>bitbot.services package<a class="headerlink" href="#bitbot-services-package" title="Permalink to this headline">¶</a></h1>
-<section id="module-bitbot.services.bittrex">
-<span id="bitbot-services-bittrex"></span><h2>bitbot.services.bittrex<a class="headerlink" href="#module-bitbot.services.bittrex" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="bitbot.services.bittrex.BitTrex">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bitbot.services.bittrex.</span></span><span class="sig-name descname"><span class="pre">BitTrex</span></span><a class="headerlink" href="#bitbot.services.bittrex.BitTrex" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#bitbot.services.service.ServiceInterface" title="bitbot.services.service.ServiceInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">bitbot.services.service.ServiceInterface</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bitbot.services.bittrex.BitTrex.api_request">
-<span class="sig-name descname"><span class="pre">api_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bitbot.services.bittrex.BitTrex.api_request" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bitbot.services.bittrex.BitTrex.get_account_id">
-<span class="sig-name descname"><span class="pre">get_account_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bitbot.services.bittrex.BitTrex.get_account_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bitbot.services.bittrex.BitTrex.get_all_markets">
-<span class="sig-name descname"><span class="pre">get_all_markets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bitbot.services.bittrex.BitTrex.get_all_markets" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bitbot.services.bittrex.BitTrex.get_available_balance">
-<span class="sig-name descname"><span class="pre">get_available_balance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">currency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#bitbot.services.bittrex.BitTrex.get_available_balance" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bitbot.services.bittrex.BitTrex.get_candles">
-<span class="sig-name descname"><span class="pre">get_candles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">market</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">candleinterval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bitbot.services.service.CandleInterval" title="bitbot.services.service.CandleInterval"><span class="pre">bitbot.services.service.CandleInterval</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.core.frame.DataFrame</span></span></span><a class="headerlink" href="#bitbot.services.bittrex.BitTrex.get_candles" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bitbot.services.bittrex.BitTrex.get_history_data">
-<span class="sig-name descname"><span class="pre">get_history_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">market</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">candleinterval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bitbot.services.service.CandleInterval" title="bitbot.services.service.CandleInterval"><span class="pre">bitbot.services.service.CandleInterval</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime.datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime.datetime</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.core.frame.DataFrame</span></span></span><a class="headerlink" href="#bitbot.services.bittrex.BitTrex.get_history_data" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bitbot.services.bittrex.BitTrex.get_market">
-<span class="sig-name descname"><span class="pre">get_market</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">market</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bitbot.services.bittrex.BitTrex.get_market" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bitbot.services.bittrex.BitTrex.get_market_mean">
-<span class="sig-name descname"><span class="pre">get_market_mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">market</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timedelta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime.timedelta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calc_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#bitbot.services.bittrex.BitTrex.get_market_mean" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bitbot.services.bittrex.BitTrex.get_market_percentage">
-<span class="sig-name descname"><span class="pre">get_market_percentage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">market</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timedelta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime.timedelta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calc_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#bitbot.services.bittrex.BitTrex.get_market_percentage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bitbot.services.bittrex.BitTrex.get_market_summary">
-<span class="sig-name descname"><span class="pre">get_market_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">market</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bitbot.services.bittrex.BitTrex.get_market_summary" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bitbot.services.bittrex.BitTrex.get_market_ticker">
-<span class="sig-name descname"><span class="pre">get_market_ticker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">market</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bitbot.services.bittrex.BitTrex.get_market_ticker" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bitbot.services.bittrex.BitTrex.place_order">
-<span class="sig-name descname"><span class="pre">place_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bitbot.services.service.Order" title="bitbot.services.service.Order"><span class="pre">bitbot.services.service.Order</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bitbot.services.bittrex.BitTrex.place_order" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<section id="bitbot-services-bittrex">
+<h2>bitbot.services.bittrex<a class="headerlink" href="#bitbot-services-bittrex" title="Permalink to this headline">¶</a></h2>
 </section>
 <section id="module-bitbot.services.service">
 <span id="bitbot-services-service"></span><h2>bitbot.services.service<a class="headerlink" href="#module-bitbot.services.service" title="Permalink to this headline">¶</a></h2>
@@ -412,8 +346,8 @@ printEnd    - Optional  : end character (e.g. “</p>
 </dd></dl>
 
 </section>
-<section id="module-bitbot.services">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-bitbot.services" title="Permalink to this headline">¶</a></h2>
+<section id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
 </section>
 </section>
 
