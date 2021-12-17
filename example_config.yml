@@ -1,14 +1,14 @@
 Bot1:
 
-  type: BacktestBot
   backtest:
-    start: 2021-11-16
+    start: 2020-12-16
     end: 2021-12-16
     interval: MINUTE_1
+
   service: BitTrex
   update_interval: 60 # seconds
   market: BTC-EUR
-  quantity: 1
+  quantity: 0.00120482 # ~ 50€ in BTC
 
   strat: 
     name: MacdRsiAlgorithm
@@ -22,13 +22,12 @@ Bot1:
         window: 14
 
     trigger_params:
-      rsi_buy: 80
-      rsi_sell: 20
-      macd_trigger_diff: 2
+      rsi_buy: 5
+      rsi_sell: 80
+      macd_trigger_diff: 20
 
 Bot2:
 
-  type: BacktestBot
   service: BitTrex
   update_interval: 60 # seconds
   market: BTC-EUR

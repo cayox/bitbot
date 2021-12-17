@@ -17,14 +17,14 @@ class MacdRsiAlgorithm(TradingStrategyInterface):
         log(f"## {self.market} ## RSI: {rsi:.2f} MACD: {macd:.2f} SIGNAL: {signal:.2f} DIFF: {diff:.2f}")
         if self.next_action == services.OrderDirection.BUY:
             # buying
-            if rsi > self.trigger_params["rsi_buy"] and abs(diff) < self.trigger_params["macd_trigger_diff"] and \
+            if rsi < self.trigger_params["rsi_buy"] and abs(diff) < self.trigger_params["macd_trigger_diff"] and \
                 abs(macd) > self.trigger_params["macd_trigger_diff"] and abs(signal) > self.trigger_params["macd_trigger_diff"]:
 
                 self.next_action = services.OrderDirection.SELL
                 return services.OrderDirection.BUY
         else:
             # selling
-            if rsi < self.trigger_params["rsi_sell"] and abs(diff) < self.trigger_params["macd_trigger_diff"] and \
+            if rsi > self.trigger_params["rsi_sell"] and abs(diff) < self.trigger_params["macd_trigger_diff"] and \
                 abs(macd) > self.trigger_params["macd_trigger_diff"] and abs(signal) > self.trigger_params["macd_trigger_diff"]:
                 
                 self.next_action = services.OrderDirection.BUY

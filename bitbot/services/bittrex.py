@@ -8,7 +8,6 @@ from time import strftime
 import requests
 from bitbot import services
 import pandas as pd
-from bitbot.helpers import history_cache
 
 from bitbot.services.service import CandleInterval
 
@@ -166,7 +165,7 @@ class BitTrex(services.ServiceInterface):
                 df["startsAt"] = pd.to_datetime(df["startsAt"], utc=True)
                 next_start += dt.timedelta(days=interval_days)
                 # to prevent to DOS the server, or get an error because too many requests
-                time.sleep(0.1)
+                # time.sleep(0.1)
                 i += 1
                 services.printProgressBar(i, max_iterations, f"{'Downloading history':<32}")
         

@@ -50,7 +50,7 @@ class Bot:
         if "macd" in cfg:
             candles = self.strat.calc_macd(candles, **cfg["macd"])
         if "rsi" in cfg:
-            candles["rsi"] = self.strat.calc_rsi(candles, **cfg["rsi"])
+            candles = self.strat.calc_rsi(candles, **cfg["rsi"])
             
         return candles
     

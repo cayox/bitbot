@@ -13,8 +13,10 @@ class BotManager:
         
         for name, cfg in self.config.items():
             # initialize service class from imports
-            bot_cls : bots.Bot = getattr(bots, cfg["type"])
-            bot = bot_cls(name, cfg)
+            if "backtest" in cfg:
+                bot = bots.BacktestBot(name, cfg)
+            else:
+                bot = bots.Bot(name, cfg)
 
             self.bots[name] = bot
     
@@ -26,7 +28,7 @@ class BotManager:
         if name not in self.bots:
             raise ValueError(f"{name} not defined in config")
 
-        logging.info(f"Starting {name} Bot ...")
+        logging.info(f"Starting {name} ...")
         self.bots[name].run()
 
         
