@@ -107,34 +107,8 @@ class BitTrex(services.ServiceInterface):
         # float conversion; values are strings by default
         for val in ["open", "close", "high", "low", "volume", "quoteVolume"]:
             df[val] = pd.to_numeric(df[val], downcast="float")
-        return df
-    
-    #### technical indicators
-
-    def get_market_percentage(self, market: str, timedelta: dt.timedelta, calc_point: str = None) -> float:
-        if calc_point is None:
-            calc_point = "close"
-        candle_interval = self.determine_candle_interval(timedelta)
-
-        candles = self.get_candles(market, candle_interval)
-
-        lookback = candles[candles["startsAt"] >= dt.datetime.utcnow() - timedelta]
-        pcts = (lookback[calc_point].pct_change() + 1).cumprod() - 1
-        if not len(pcts):
-            return 0
-        return pcts[pcts.last_valid_index()]
-    
-    def get_market_mean(self, market: str, timedelta: dt.timedelta, calc_point: str = None) -> float:
-        if calc_point is None:
-            calc_point = "close"
-        candle_interval = self._determine_candle_interval(timedelta)
-
-        candles = self.get_candles(market, candle_interval)
-
-        lookback = candles[candles["startsAt"] >= dt.datetime.utcnow() - timedelta]
-        if len(lookback) == 0:
-            return 0
-        return lookback[calc_point].mean()
+        df = df.rename({"startsAt": "time"})
+        return df.rename(str.lower, axis='columns')
     
     #### market history
     
@@ -169,7 +143,8 @@ class BitTrex(services.ServiceInterface):
                 i += 1
                 services.printProgressBar(i, max_iterations, f"{'Downloading history':<32}")
         
-        df = df[df["startsAt"] < end.isoformat()].rename({"startsAt": "time"})
+        df = df[df["startsAt"] < end.isoformat()]
+        df = df.rename({"startsAt": "time"})
         # float conversion; values are strings by default
         for val in ["open", "close", "high", "low", "volume", "quoteVolume"]:
             df[val] = pd.to_numeric(df[val], downcast="float")

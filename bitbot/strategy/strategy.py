@@ -38,7 +38,7 @@ class TradingStrategyInterface:
     
     def calc_rsi(self, candles: pd.DataFrame, **kwargs) -> pd.DataFrame:
         """
-        Method to calulate the rsi of the specified data. Accepts the same parameter as in :ref:`ta.momentum.RSIIndicator<https://technical-analysis-library-in-python.readthedocs.io/en/latest/ta.html#ta.momentum.RSIIndicator>`
+        Method to calulate the Relative Strength Index of the specified data. Accepts the same parameter as in :ref:`ta.momentum.RSIIndicator<https://technical-analysis-library-in-python.readthedocs.io/en/latest/ta.html#ta.momentum.RSIIndicator>`
 
         
         Args:
@@ -55,7 +55,7 @@ class TradingStrategyInterface:
     
     def calc_macd(self, candles: pd.DataFrame, **kwargs) -> pd.DataFrame:
         """
-        Method to calulate the macd of the most recent data. Accepts the same parameter as in :ref:`ta.trend.MACD<https://technical-analysis-library-in-python.readthedocs.io/en/latest/ta.html#ta.trend.MACD>`
+        Method to calulate the Moving Average Convergence Divergence of the most recent data. Accepts the same parameter as in :ref:`ta.trend.MACD<https://technical-analysis-library-in-python.readthedocs.io/en/latest/ta.html#ta.trend.MACD>`
 
         Args:
             candles (pd.Dataframe): the Dataframe to which the macd should be applied to
@@ -68,6 +68,21 @@ class TradingStrategyInterface:
         candles.loc[:, "macd"] = obj.macd()
         candles.loc[:, "macd_signal"] = obj.macd_signal()
         candles.loc[:, "macd_diff"] = obj.macd_diff()
+        return candles
+    
+    def calc_roc(self, candles: pd.DataFrame, **kwargs) -> pd.DataFrame:
+        """
+        Method to calulate the Rate of Change of the given data. Accepts the same parameter as in :ref:`ta.momentum.ROCIndicator<https://technical-analysis-library-in-python.readthedocs.io/en/latest/ta.html#ta.momentum.ROCIndicator>`
+
+        Args:
+            candles (pd.Dataframe): the Dataframe to which the macd should be applied to
+
+        Returns:
+            pd.DataFrame: returns the same dataframe with a ``"roc"`` column
+
+        """
+        obj = momentum.ROCIndicator(candles["close"], **kwargs)
+        candles.loc[:, "roc"] = obj.roc()
         return candles
         
     @abstractmethod

@@ -1,7 +1,7 @@
 Bot1:
 
   backtest:
-    start: 2020-12-16
+    start: 2021-12-01
     end: 2021-12-16
     interval: MINUTE_1
 
@@ -28,18 +28,27 @@ Bot1:
 
 Bot2:
 
+  backtest:
+    start: 2021-12-01
+    end: 2021-12-16
+    interval: MINUTE_1
+
   service: BitTrex
   update_interval: 60 # seconds
   market: BTC-EUR
-  quantity: 1
+  quantity: 0.00120482 # ~ 50€ in BTC
 
   strat: 
     name: TrendFollowing
 
+    ta_params: 
+      roc:
+        window: 14
+
     trigger_params:
-      sell_high: 0.03
-      sell_low: -0.03
-      buy_percentage: 0.025
+      sell_high: 0.3
+      sell_low: -0.5
+      buy_percentage: 0.1
 
 
 

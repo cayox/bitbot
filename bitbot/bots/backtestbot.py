@@ -64,7 +64,10 @@ class BacktestBot(bots.Bot):
 
         def apply_strat(index): 
             services.printProgressBar(index, len(candles.index), prefix=f"{'Applying strategy':<32}")
-            return self.strat.generate_signal(candles.iloc[index-100:index], self.log).value
+            sig = self.strat.generate_signal(candles.iloc[index-100:index], self.log)
+            if sig != services.OrderDirection.NONE:
+                self.strat.next_action = services.OrderDirection.BUY if sig == services.OrderDirection.SELL else services.OrderDirection.SELL
+            return sig.value
 
         candles["order"] = candles.index.map(apply_strat)
         buys = candles[candles["order"] == "BUY"]

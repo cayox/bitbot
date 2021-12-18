@@ -9,5 +9,5 @@ logging.basicConfig(format='[%(asctime)s] [%(levelname)s]: %(message)s', level=l
 
 if __name__ == "__main__":
     bm = BotManager(r"C:\Projects\bitbot\example_config.yml")
-    bm.start_bot("Bot1")
+    bm.start_bot("Bot2")
         

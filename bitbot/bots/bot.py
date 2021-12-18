@@ -46,11 +46,17 @@ class Bot:
             pd.DataFrame
 
         """
+
+        if "ta_params" not in self.config["strat"]:
+            return candles
+
         cfg = self.config["strat"]["ta_params"] 
         if "macd" in cfg:
             candles = self.strat.calc_macd(candles, **cfg["macd"])
         if "rsi" in cfg:
             candles = self.strat.calc_rsi(candles, **cfg["rsi"])
+        if "roc" in cfg:
+            candles = self.strat.calc_roc(candles, **cfg["roc"])
             
         return candles
     
@@ -59,6 +65,9 @@ class Bot:
     
     def warn(self, msg: str):
         logging.warning(f"* {self.name}: {msg}")
+    
+    def err(self, msg: str):
+        logging.error(f"* {self.name}: {msg}")
     
     def run(self):
         """
@@ -89,10 +98,10 @@ class Bot:
                 try:
                     res = self.service.place_order(order)
                 except Exception as e:
-                    logging.error(f"{e}")
-                    # TODO : remove raise
-                    raise e
-                    return
+                    logging.error(f"{e.__class__.__name__}: {str(e)}")
+
+                    time.sleep(self.config["update_interval"])
+                    continue
                 
                 if res["status"] != "CLOSED":
                     self.warn(f'Could not place Order: Status: {res["status"]}')
