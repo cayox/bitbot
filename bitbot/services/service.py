@@ -95,6 +95,14 @@ def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, 
 
 class ServiceInterface:
     def __init__(self, service_name: str = None):
+        """
+        Description of __init__
+
+        Args:
+            service_name (str=None): the name of the service. Used to get the secrets in the secrets file and to 
+                find the right class to use
+
+        """
         if service_name is None:
             return
             

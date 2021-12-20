@@ -59,6 +59,9 @@ class BacktestBot(bots.Bot):
 
         candles = self.service.get_history_data(self.config["market"], services.CandleInterval.MINUTE_1,
                                                 backtest_cfg["start"], backtest_cfg["end"])
+        if candles is None:
+            return
+
         candles = self.apply_tas(candles)
         candles = candles.reset_index()
 
@@ -98,20 +101,27 @@ class BacktestBot(bots.Bot):
               f"{'Timeframe:':<32}{backtest_cfg['start'].strftime('%Y-%m-%d %H:%M:%S') + ' - ' + backtest_cfg['end'].strftime('%Y-%m-%d %H:%M:%S')}\n"        
               "\n"    
               f"{'Transactions made:':<32}{len(transactions)}\n"
-              "\n"
-              f"{'Winning transactions:':<32}{len(profits)}\n"
-              f"{'Total win:':<32}{profits.sum()} {currency}\n"
-              f"{'Max win:':<32}{max(profits)} {currency}\n"
-              f"{'Min win:':<32}{min(profits)} {currency}\n"
-              f"{'Avg win:':<32}{profits.mean()} {currency}\n"
-              "\n"
-              f"{'Loosing transactions:':<32}{len(losses)}\n"
-              f"{'Total loss:':<32}{losses.sum()} {currency}\n"
-              f"{'Max loss:':<32}{min(losses)} {currency}\n"
-              f"{'Min loss:':<32}{max(losses)} {currency}\n"
-              f"{'Avg loss:':<32}{losses.mean()} {currency}\n"
-              "\n"
-              f"{'Est. input:':<32}{qty*candles['close'].iloc[0]} {currency}\n"
+              "\n")
+        if len(profits) > 0:
+            print(f"{'Winning transactions:':<32}{len(profits)}\n"
+                  f"{'Total win:':<32}{profits.sum()} {currency}\n"
+                  f"{'Max win:':<32}{max(profits)} {currency}\n"
+                  f"{'Min win:':<32}{min(profits)} {currency}\n"
+                  f"{'Avg win:':<32}{profits.mean()} {currency}\n")
+        else:
+            print("/// No profits made\n")
+
+        if len(losses) > 0:
+            print(f"{'Loosing transactions:':<32}{len(losses)}\n"
+                  f"{'Total loss:':<32}{losses.sum()} {currency}\n"
+                  f"{'Max loss:':<32}{min(losses)} {currency}\n"
+                  f"{'Min loss:':<32}{max(losses)} {currency}\n"
+                  f"{'Avg loss:':<32}{losses.mean()} {currency}\n")
+        else:
+            print("/// No losses made\n")
+        
+        
+        print(f"{'Est. input:':<32}{qty*candles['close'].iloc[0]} {currency}\n"
               f"{'Est. profit gain:':<32}{profits.sum() + losses.sum()} {currency}\n"
               f"{'Est. profit w/ holding:':<32}{(candles['close'].iloc[-1] - candles['close'].iloc[0]) * qty} {currency}\n"
               f"{'Total outcome:':<32}{(profits.sum() + losses.sum()) + (qty*candles['close'].iloc[0])} {currency}\n"
@@ -121,4 +131,4 @@ class BacktestBot(bots.Bot):
               )
 
         logger.disabled = False
-
+        input("Press any key to close ...")

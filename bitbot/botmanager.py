@@ -1,6 +1,7 @@
 import logging
 from bitbot import bots
 import yaml
+import subprocess
 
 
 class BotManager:
@@ -20,15 +21,11 @@ class BotManager:
 
             self.bots[name] = bot
     
-    def run_all(self):
-        for name in self.bots:
-            self.start_bot(name)
-    
     def start_bot(self, name: str):
         if name not in self.bots:
             raise ValueError(f"{name} not defined in config")
 
-        logging.info(f"Starting {name} ...")
+        print(f"Starting {name} ...")
         self.bots[name].run()
 
         

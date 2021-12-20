@@ -88,10 +88,11 @@ class TradingStrategyInterface:
     @abstractmethod
     def generate_signal(self, candles: pd.DataFrame, log: callable) -> services.OrderDirection:
         """
-        Method to generate a buying or selling signal based on any market data. Must be overwritten from specific or self implemented Strategies.
+        Method to generate a buying or selling signal based on any market data. Must be overwritten from specific or self implemented strategies.
 
         Args:
-            buy_position (bool=False): Wether method should check for buying or selling conditions
+            candles (pandas.DataFrame): The candles with all needed technical Indicators applied
+            log (callable): A function to log any message to the console. Accepts only one parameter that is a str
 
         Returns:
             services.OrderDirection

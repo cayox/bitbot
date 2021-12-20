@@ -2,6 +2,7 @@ import hashlib
 import datetime as dt
 import hmac
 import json
+import logging
 from os import terminal_size
 import time
 from time import strftime
@@ -134,8 +135,12 @@ class BitTrex(services.ServiceInterface):
             services.printProgressBar(i, max_iterations, f"{'Downloading history':<32}")
             while next_start < end:
                 url = f"markets/{market}/candles/{candleinterval.value}/historical/{next_start.strftime('%Y')}/{next_start.strftime('%m')}/{next_start.strftime('%d')}"
-                df = df.append(pd.DataFrame(self.api_request(url)), ignore_index=True)
+                new_df = pd.DataFrame(self.api_request(url))
+                if new_df.empty:
+                    print(f"\n### ERROR: Data in time {next_start.strftime('%Y-%m-%d %H:%M:%S') + ' - ' + (next_start + dt.timedelta(days=interval_days)).strftime('%Y-%m-%d %H:%M:%S')} not available")
+                    return
                 
+                df = df.append(new_df, ignore_index=True)
                 df["startsAt"] = pd.to_datetime(df["startsAt"], utc=True)
                 next_start += dt.timedelta(days=interval_days)
                 # to prevent to DOS the server, or get an error because too many requests

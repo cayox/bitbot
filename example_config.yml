@@ -1,8 +1,8 @@
 Bot1:
 
   backtest:
-    start: 2021-12-01
-    end: 2021-12-16
+    start: 2021-05-01
+    end: 2021-05-30
     interval: MINUTE_1
 
   service: BitTrex
@@ -30,7 +30,7 @@ Bot2:
 
   backtest:
     start: 2021-12-01
-    end: 2021-12-16
+    end: 2021-12-18
     interval: MINUTE_1
 
   service: BitTrex
@@ -46,9 +46,9 @@ Bot2:
         window: 14
 
     trigger_params:
-      sell_high: 0.3
-      sell_low: -0.5
-      buy_percentage: 0.1
+      sell_high: 3
+      sell_low: -1
+      buy_percentage: 1
 
 
 
