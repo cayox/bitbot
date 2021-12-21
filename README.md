@@ -1,10 +1,11 @@
 [![github pages](https://github.com/cayox/bitbot/actions/workflows/docs_deploy.yml/badge.svg?branch=main&event=push)](https://github.com/cayox/bitbot/actions/workflows/docs_deploy.yml)
 
-# bitbot
+# BitBot
 Highly customizable trading bot 
 
 # Disclaimer
-This Project currently runs on windows only but cross platform operation will be added soon.
+This Project support currently BitTrex only. You can implement your own service or request a service implementation by creating an issue :)
+
 If you find any bug please create an issue and i will fix it as soon as possible
 
 # How to start
